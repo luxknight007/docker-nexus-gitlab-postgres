@@ -2,6 +2,7 @@ version: '3.6'
 services:
   web:
     image: 'gitlab/gitlab-ce:15.11.5-ce.0'
+    container_name: gitlab
     restart: always
     hostname: '192.168.254.131'
     environment:
@@ -11,7 +12,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
-      - '22:22'
+      - '2224:22'
     volumes:
       - '$GITLAB_HOME/config:/etc/gitlab'
       - '$GITLAB_HOME/logs:/var/log/gitlab'
@@ -20,10 +21,11 @@ services:
 
   nexus:
     image: 'sonatype/nexus'
+    container_name: nexus
     ports:
       - '8081:8081'
     volumes:
-      - '$NEXUS_DATA/:/nexus-data'
+      - '$NEXUS_DATA/nexus-data:/nexus-data'
 
   postgres:
     image: 'postgres:9.3'
